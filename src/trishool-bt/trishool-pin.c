@@ -590,13 +590,17 @@ static void tri_pin_callback_trace(TRACE trace, VOID *v)
     //tri_im_track_memory(trace_addr);
     //tri_im_track_memory(trace_addr + TRACE_Size(trace));
 
+    tri_log_debug("Trace Started");
     for (bb = TRACE_BblHead(trace); BBL_Valid(bb); bb = BBL_Next(bb)) {
         bb_addr = BBL_Address(bb);
+        tri_log_debug("Basic Block Started");
         for (ins = BBL_InsHead(bb); INS_Valid(ins); ins = INS_Next(ins)) {
             ins_addr = INS_Address(ins);
             tri_pin_trace_instr_process(ins, trace_addr, bb_addr, ins_addr);
         }
+        tri_log_debug("Basic Block Ended");
     }
+    tri_log_debug("Trace Ended");
 
     return;
 }
